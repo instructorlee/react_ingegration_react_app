@@ -17,7 +17,6 @@ const Login = ( props ) => {
         userService.login(email, password)
             .then( resp => { console.log(resp)
                 window.localStorage.setItem('access_token', resp.auth_token);
-                //window.localStorage.setItem('refresh_token', resp.refresh_token);
                 setUser(resp.user);
             })
             .catch( err => {

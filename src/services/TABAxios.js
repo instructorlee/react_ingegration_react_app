@@ -1,9 +1,5 @@
-import { useContext } from 'react';
 import axios from 'axios';
 import { config } from '../config'
-import { AppContext } from '../store/AppContext';
-
-//const { setUser } = useContext(AppContext);
 
 const axiosInstance = axios.create({
     baseURL: config.API_URL,
@@ -20,20 +16,7 @@ axiosInstance.interceptors.response.use(
     async error => {
       const originalRequest = error.config;
         if (error.response.status === 401) { 
-            return Promise.reject(error);
-            /*                                                                   // if 401 is returned, the token has expired
-            const refresh_token = window.localStorage.getItem('refresh_token');
-            try {
-                const response = await axiosInstance.post('/user/refresh-token', { refresh: refresh_token });   // send the refresh token
-                window.localStorage.setItem('access_token', response.data.auth_token);                          // if valid, new access and refresh tokens are returned
-                window.localStorage.setItem('refresh_token', response.data.refresh_token);
-                originalRequest.headers['Authorization'] = response.data.auth_token;
-                return axiosInstance(originalRequest);                                                          // re-submits original request
-            }
-            catch (err) {
-                console.log(err);                                                                               // if there is an issue
-            }
-            */
+            window.localStorage.setItem('access_token', null);
         }
       return Promise.reject(error);
   }
