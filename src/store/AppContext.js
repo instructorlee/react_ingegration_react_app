@@ -16,7 +16,7 @@ function AppProvider({ children }) {
         if ( window.localStorage.getItem('access_token') !== null ) {
             userService.getCurrentUser()
                     .then( resp => setUser(resp))
-                    .catch( err => console.log(err))
+                    .catch( err => setUser(null))
         } else {
             setUser(null);
         }
@@ -33,12 +33,10 @@ function AppProvider({ children }) {
 
     /* make logout available anywhere */
     const logout = () => {
+
+        window.localStorage.removeItem('access_token')
         userService.logout()
-            .then( resp => {
-                window.localStorage.removeItem('access_token');
-                setUser(null);
-            })
-            .catch( err => console.log(err))
+            .finally( resp => setUser(null))
     }
 
     return (

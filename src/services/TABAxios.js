@@ -1,5 +1,9 @@
+import { useContext } from 'react';
 import axios from 'axios';
 import { config } from '../config'
+import { AppContext } from '../store/AppContext';
+
+//const { setUser } = useContext(AppContext);
 
 const axiosInstance = axios.create({
     baseURL: config.API_URL,
@@ -11,13 +15,13 @@ const axiosInstance = axios.create({
     }
 });
 
-
-
 axiosInstance.interceptors.response.use(                                                                  
     response => response,                                                                                       // axios submits request
     async error => {
       const originalRequest = error.config;
-        if (error.response.status === 401) {                                                                    // if 401 is returned, the token has expired
+        if (error.response.status === 401) { 
+            return Promise.reject(error);
+            /*                                                                   // if 401 is returned, the token has expired
             const refresh_token = window.localStorage.getItem('refresh_token');
             try {
                 const response = await axiosInstance.post('/user/refresh-token', { refresh: refresh_token });   // send the refresh token
@@ -29,6 +33,7 @@ axiosInstance.interceptors.response.use(
             catch (err) {
                 console.log(err);                                                                               // if there is an issue
             }
+            */
         }
       return Promise.reject(error);
   }

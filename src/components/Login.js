@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import userService from '../services/UserService';
 import { AppContext } from '../store/AppContext';
-import { useNavigate } from "react-router-dom";
 
 const Login = ( props ) => {
 
@@ -16,9 +15,9 @@ const Login = ( props ) => {
         setCheckingCredentials(true);
 
         userService.login(email, password)
-            .then( resp => {
+            .then( resp => { console.log(resp)
                 window.localStorage.setItem('access_token', resp.auth_token);
-                window.localStorage.setItem('refresh_token', resp.refresh_token);
+                //window.localStorage.setItem('refresh_token', resp.refresh_token);
                 setUser(resp.user);
             })
             .catch( err => {
