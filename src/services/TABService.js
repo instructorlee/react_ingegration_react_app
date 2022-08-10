@@ -37,7 +37,7 @@ class TABService {
         })
 
     _delete = (path) => 
-        axios.delete(`${config.API_URL}/api/${path}`)
+        axios.delete(`${config.API_URL}/${path}`)
     
     /* pubic methods */
     create = (entity) => 

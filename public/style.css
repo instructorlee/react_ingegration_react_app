@@ -3,3 +3,8 @@
     font-weight: bold;
     color: red
 }
+
+.joke {
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,.5);
+}
