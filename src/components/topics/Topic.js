@@ -13,9 +13,17 @@ const Topic = ( props ) => {
     const [ jokeBeingDeleted, setJokeBeingDeleted ] = useState(null);
 
     useEffect(() => {
+        setTopic({
+            title: 'some title',
+            jokes: [
+
+            ]
+        })
+        /*
         topicService.get(id)
             .then( resp => setTopic(resp))
             .catch( err => console.log(err))
+            */
     }, []);
 
     const addJoke = () => {
